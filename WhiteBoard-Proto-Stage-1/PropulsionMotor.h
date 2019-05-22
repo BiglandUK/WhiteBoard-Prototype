@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "ObjectProperty.h"
 // Propulsion Motor
 // a SubProperty for the MovementProperty.
 
 class Textbox;
 
-class PropulsionMotor {
+class PropulsionMotor : public ObjectProperty{
 public:
 	enum class Type { Constant, TimePulse, MinSpeedPulse };
 
@@ -16,7 +17,7 @@ public:
 	void ChangeType(Type type);
 	Type GetType()const;
 
-
+	void SetUpTextBox(Textbox* txtBox);
 	void SetRunningDuration(float duration);
 	void SetIdleDuration(float duration);
 	void SetMinSpeedTrigger(float speed);

@@ -69,7 +69,7 @@ bool ObjectPosition::IsInside(const sf::Vector2f& mousePos) {
 
 // OBJECT MOVEMENT
 ObjectMovement::ObjectMovement()
-	:ObjectProperty(Property::Move), mGrabbed(false), mMotor(nullptr)
+	:ObjectProperty(Property::Move), mGrabbed(false)
 {
 	mMaxVelocityMagnitude = 500.f;
 	mDirection.x = 1.f; mDirection.y = 0.f;
@@ -77,10 +77,7 @@ ObjectMovement::ObjectMovement()
 }
 
 ObjectMovement::~ObjectMovement() {
-	if (mMotor) {
-		delete mMotor;
-		mMotor = nullptr;
-	}
+
 }
 
 void ObjectMovement::SetDirection(const sf::Vector2f& direction) {
@@ -95,11 +92,23 @@ void ObjectMovement::SetDirection(const sf::Vector2f& direction) {
 	
 }
 
+const sf::Vector2f& ObjectMovement::GetDirection() const {
+	return mDirection;
+}
+
+sf::Vector2f& ObjectMovement::GetDirection() {
+	return mDirection;
+}
+
 void ObjectMovement::SetVelocity(const sf::Vector2f& velocity) {
 	mActualVelocity = velocity;
 }
 
 const sf::Vector2f& ObjectMovement::GetVelocity() const {
+	return mActualVelocity;
+}
+
+sf::Vector2f& ObjectMovement::GetVelocity() {
 	return mActualVelocity;
 }
 
@@ -121,23 +130,8 @@ void ObjectMovement::OnRelease() {
 }
 
 void ObjectMovement::Update(float time, const sf::Vector2f& mousePos) {
-	if (mMotor) {
-		mMotor->Update(time, mActualVelocity, mDirection);
-	}
 }
 
 void ObjectMovement::Render(sf::RenderWindow& window) {
 	txtBox.Render(window);
-}
-
-//Acceleration not working
-void ObjectMovement::SetMotor() {
-	mMotor = new PropulsionMotor(PropulsionMotor::Type::TimePulse, &txtBox);
-	//mMotor->ChangeType(PropulsionMotor::Type::MinSpeedPulse);
-	//mMotor->SetMinSpeedTrigger(50.0f);// > SetDelay(0.5f);
-	mMotor->SetRunningDuration(2.0f);
-	mMotor->SetIdleDuration(2.f);
-	//mMotor->SetAcceleration(100.0f);
-	mMotor->SetSpeed(135.f);
-	//mMotor->ToggleAcceleration();
 }

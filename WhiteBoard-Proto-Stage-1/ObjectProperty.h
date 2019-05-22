@@ -45,16 +45,18 @@ private:
 	bool IsInside(const sf::Vector2f& mousePos);
 };
 
-#include "PropulsionMotor.h"
 class ObjectMovement : public ObjectProperty {
 public:
 	ObjectMovement();
 	~ObjectMovement();
 
 	void SetDirection(const sf::Vector2f& direction);
+	const sf::Vector2f& GetDirection() const;
+	sf::Vector2f& GetDirection();
 
 	void SetVelocity(const sf::Vector2f& velocity);
 	const sf::Vector2f& GetVelocity() const;
+	sf::Vector2f& GetVelocity();
 
 	void ReduceSpeed(const float speed);
 	bool IsStopped()const;
@@ -65,7 +67,6 @@ public:
 	void Update(float time, const sf::Vector2f& mousePos);
 	void Render(sf::RenderWindow& window);
 
-	void SetMotor();
 
 
 private:
@@ -73,8 +74,6 @@ private:
 	sf::Vector2f mActualVelocity;
 	float mMaxVelocityMagnitude;
 	bool mGrabbed;
-
-	PropulsionMotor* mMotor;
 
 	Textbox txtBox;
 };

@@ -1,4 +1,5 @@
 #include "ObjectManager.h"
+#include "PropulsionMotor.h"
 
 ObjectManager::ObjectManager() 
 	:systemMovement(mObjects)
@@ -7,6 +8,10 @@ ObjectManager::ObjectManager()
 
 	mObjects.push_back(std::make_shared<Object>(Object(1000.f, 500.f))); mObjects[1]->SetFillColour(sf::Color::Yellow);
 	mObjects[1]->AddMotor();
+	std::shared_ptr<PropulsionMotor> pm = mObjects[1]->GetProperty<PropulsionMotor>(Property::Motor);
+	pm->SetAcceleration(500.f);
+	pm->ChangeType(PropulsionMotor::Type::Constant);
+	pm->SetSpeed(400.0f);
 	mObjects.push_back(std::make_shared<Object>(Object(250.f, 300.f))); mObjects[2]->SetFillColour(sf::Color::Green); //mObjects[2]->ToggleVisibility();
 	mObjects[2]->AddMotor();
 	mObjects.push_back(std::make_shared<Object>(Object(700.f, 25.f))); mObjects[3]->SetFillColour(sf::Color::Blue);

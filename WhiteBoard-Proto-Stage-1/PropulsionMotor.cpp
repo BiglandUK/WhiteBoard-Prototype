@@ -1,10 +1,14 @@
 #include "PropulsionMotor.h"
 #include "Textbox.h"
 PropulsionMotor::PropulsionMotor(Type type, Textbox* txtBox)
-	: mType(type), mSetSpeed(0.f), mAcceleration(0.f), mMinSpeedTrigger(0.f), mCounter(0.f), pTxtBox(txtBox),
+	: ObjectProperty(Property::Motor), mType(type), mSetSpeed(0.f), mAcceleration(0.f), mMinSpeedTrigger(0.f), mCounter(0.f), pTxtBox(new Textbox),
 	mIdleDuration(0.f), mRunningDuration(0.f), mRunning(false)
 {
 	SwitchToRunning();
+}
+
+void PropulsionMotor::SetUpTextBox(Textbox* txtBox) {
+	pTxtBox = txtBox;
 }
 
 void PropulsionMotor::Update(float time, sf::Vector2f& velocity, const sf::Vector2f& direction) {

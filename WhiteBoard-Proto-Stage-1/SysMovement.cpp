@@ -1,4 +1,5 @@
 #include "SysMovement.h"
+#include "PropulsionMotor.h"
 
 SysMovement::SysMovement(Objects& objects)
 	: mRefObjects(objects), mFriction(40.f)
@@ -14,8 +15,15 @@ void SysMovement::Update(float time, const sf::Vector2f& mousePos) {
 	mMouseEMAVelocity = ExpMovingAverageVelocity(time, velocity);
 	for (auto o : mRefObjects) { // for each object
 		if (!(o->IsVisible())) { continue; } // ignore invisible objects
+		
 		auto movementProp = o->GetProperty<ObjectMovement>(Property::Move);//std::static_pointer_cast<ObjectMovement>(o->GetProperty(Property::Move));
 		if (movementProp == nullptr)return;
+		auto motorProp = o->GetProperty<PropulsionMotor>(Property::Motor);
+		if (motorProp) {
+			sf::Vector2f& vel = movementProp->GetVelocity();
+			sf::Vector2f& dir = movementProp->GetDirection();
+			motorProp->Update(time, vel, dir);
+		}
 		movementProp->Update(time, mousePos);
 		auto positionProp = o->GetProperty<ObjectPosition>(Property::Position);
 		if (positionProp == nullptr)return;

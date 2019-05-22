@@ -18,6 +18,12 @@ public:
 	Object();
 	Object(float x, float y);
 
+	template<class T>
+	bool AddProperty(Property propertyType) {
+		mProperties.emplace(propertyType, std::make_shared<T>());
+		return true;
+	}
+
 	void SetFillColour(const sf::Color& colour);
 
 	bool IsVisible() const;

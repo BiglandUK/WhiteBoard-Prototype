@@ -1,5 +1,5 @@
 #include "Object.h"
-
+#include "PropulsionMotor.h"
 Object::Object()
 	:mVisible(true)
 {
@@ -42,7 +42,5 @@ void Object::Render(sf::RenderWindow& window) {
 }
 
 void Object::AddMotor() {
-
-	auto motor = GetProperty<ObjectMovement>(Property::Move);
-	if(motor != nullptr) motor->SetMotor();
+	AddProperty<PropulsionMotor>(Property::Motor);
 }
