@@ -135,3 +135,11 @@ void ObjectMovement::Update(float time, const sf::Vector2f& mousePos) {
 void ObjectMovement::Render(sf::RenderWindow& window) {
 	txtBox.Render(window);
 }
+
+void ObjectMovement::SetBounce(bool bounce){
+	mBounce = bounce;
+}
+
+bool ObjectMovement::DoesBounce()const{
+	return mBounce;
+}
