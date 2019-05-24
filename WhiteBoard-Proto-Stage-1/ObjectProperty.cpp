@@ -69,7 +69,7 @@ bool ObjectPosition::IsInside(const sf::Vector2f& mousePos) {
 
 // OBJECT MOVEMENT
 ObjectMovement::ObjectMovement()
-	:ObjectProperty(Property::Move), mGrabbed(false)
+	:ObjectProperty(Property::Move), mGrabbed(false), mBounce(true)
 {
 	mMaxVelocityMagnitude = 500.f;
 	mDirection.x = 1.f; mDirection.y = 0.f;
