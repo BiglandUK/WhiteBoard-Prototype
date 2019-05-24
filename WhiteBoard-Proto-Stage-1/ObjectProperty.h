@@ -67,13 +67,14 @@ public:
 	void Update(float time, const sf::Vector2f& mousePos);
 	void Render(sf::RenderWindow& window);
 
-
+	void SetBounce(bool bounce);
+	bool DoesBounce() const;
 
 private:
 	sf::Vector2f mDirection; // the direction the object is facing/heading - used as initial direction when the object moves from rest.
 	sf::Vector2f mActualVelocity;
 	float mMaxVelocityMagnitude;
-	bool mGrabbed;
+	bool mGrabbed, mBounce;
 
 	Textbox txtBox;
 };
