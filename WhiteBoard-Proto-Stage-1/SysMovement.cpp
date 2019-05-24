@@ -51,13 +51,15 @@ void SysMovement::Update(float time, const sf::Vector2f& mousePos) {
 				position.x += velocity.x * time;
 				position.y += velocity.y * time;
 				//Check for bounces - move to a property??
-				if (position.x < 0.f || position.x > 1280.f-25.f	) {
-					velocity.x = -velocity.x;
+				if(movementProp->DoesBounce()){
+					if (position.x < 0.f || position.x > 1280.f-25.f	) {
+						velocity.x = -velocity.x;
+					}
+					if (position.y < 0.f || position.y > 720.f-25.f) {
+						velocity.y = -velocity.y;
+					}
+					movementProp->SetDirection(velocity);//Update the direction vector in Movement Property.
 				}
-				if (position.y < 0.f || position.y > 720.f-25.f) {
-					velocity.y = -velocity.y;
-				}
-				movementProp->SetDirection(velocity);//Update the direction vector in Movement Property.
 				RestrictBoardBoundaries(position); // Prevent object moving outside board.
 				// Friction - affects movement property. Only affected if not grabbed by mouse
 				movementProp->ReduceSpeed(mFriction * time); 
