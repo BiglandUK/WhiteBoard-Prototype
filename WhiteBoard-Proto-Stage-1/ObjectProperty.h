@@ -59,16 +59,19 @@ public:
 	sf::Vector2f& GetVelocity();
 
 	void ReduceSpeed(const float speed);
+	void Stop();
 	bool IsStopped()const;
 
-	void OnClick(const sf::Vector2f& mousePos);
 	void OnRelease();
 
 	void Update(float time, const sf::Vector2f& mousePos);
 	void Render(sf::RenderWindow& window);
 
-	void SetBounce(bool bounce);
 	bool DoesBounce() const;
+	void SetBounce(bool bounce);
+
+	void CollideLR(); // Collision on left or right
+	void CollideTB(); // Collision on top or bottom
 
 private:
 	sf::Vector2f mDirection; // the direction the object is facing/heading - used as initial direction when the object moves from rest.

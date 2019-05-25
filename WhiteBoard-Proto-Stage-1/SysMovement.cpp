@@ -50,16 +50,15 @@ void SysMovement::Update(float time, const sf::Vector2f& mousePos) {
 				// Update the position of the object based on its current velocity
 				position.x += velocity.x * time;
 				position.y += velocity.y * time;
-				//Check for bounces - move to a property??
-				if(movementProp->DoesBounce()){
-					if (position.x < 0.f || position.x > 1280.f-25.f	) {
-						velocity.x = -velocity.x;
-					}
-					if (position.y < 0.f || position.y > 720.f-25.f) {
-						velocity.y = -velocity.y;
-					}
-					movementProp->SetDirection(velocity);//Update the direction vector in Movement Property.
+				
+				// Check for collisions with board edge
+				if (position.x < 0.f || position.x > 1280.f-25.f	) {
+					movementProp->CollideLR();
 				}
+				if (position.y < 0.f || position.y > 720.f-25.f) {
+					movementProp->CollideTB();
+				}
+				
 				RestrictBoardBoundaries(position); // Prevent object moving outside board.
 				// Friction - affects movement property. Only affected if not grabbed by mouse
 				movementProp->ReduceSpeed(mFriction * time); 
@@ -93,9 +92,10 @@ void SysMovement::OnRelease() {
 		if (positionProp == nullptr) continue;
 		if (positionProp->IsGrabbed()) {
 			auto movementProp = o->GetProperty<ObjectMovement>(Property::Move);
-			if (movementProp == nullptr) continue;
-			movementProp->SetVelocity(mMouseEMAVelocity);
-			movementProp->SetDirection(mMouseEMAVelocity);
+			if (movementProp) {
+				movementProp->SetVelocity(mMouseEMAVelocity);
+				movementProp->SetDirection(mMouseEMAVelocity);
+			}
 			positionProp->OnRelease();
 			break;
 		}

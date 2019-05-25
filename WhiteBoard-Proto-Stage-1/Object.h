@@ -16,7 +16,7 @@ private:
 
 public:
 	Object();
-	Object(float x, float y);
+	Object(float x, float y, bool move = true);
 
 	template<class T>
 	bool AddProperty(Property propertyType) {

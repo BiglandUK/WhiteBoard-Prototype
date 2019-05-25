@@ -121,6 +121,10 @@ void ObjectMovement::ReduceSpeed(const float speed) {
 	mActualVelocity.y = mDirection.y * newSpeed;
 }
 
+void ObjectMovement::Stop() {
+	mActualVelocity.x = mActualVelocity.y = 0.f;
+}
+
 bool ObjectMovement::IsStopped()const {
 	return mActualVelocity.x == 0.f && mActualVelocity.y == 0.f;
 }
@@ -140,6 +144,22 @@ void ObjectMovement::SetBounce(bool bounce){
 	mBounce = bounce;
 }
 
-bool ObjectMovement::DoesBounce()const{
+bool ObjectMovement::DoesBounce() const{
 	return mBounce;
+}
+
+void ObjectMovement::CollideLR() {
+	if (mBounce) {
+		mActualVelocity.x = -mActualVelocity.x;
+		SetDirection(mActualVelocity);
+	}
+	else Stop();
+}
+
+void ObjectMovement::CollideTB() {
+	if (mBounce) {
+		mActualVelocity.y = -mActualVelocity.y;
+		SetDirection(mActualVelocity);
+	}
+	else Stop();
 }

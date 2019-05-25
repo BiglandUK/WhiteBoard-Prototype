@@ -8,11 +8,12 @@ Object::Object()
 
 }
 
-Object::Object(float x, float y)
+Object::Object(float x, float y, bool move)
 	: mVisible(true), mFillColour(sf::Color::Red)
 {
 	mProperties.emplace(Property::Position, std::make_shared<ObjectPosition>(x, y)); //new ObjectPosition(x, y));
-	mProperties.emplace(Property::Move, std::make_shared<ObjectMovement>());// new ObjectMovement());
+	if (move)
+		mProperties.emplace(Property::Move, std::make_shared<ObjectMovement>());// new ObjectMovement());
 }
 
 bool Object::IsVisible()const {
