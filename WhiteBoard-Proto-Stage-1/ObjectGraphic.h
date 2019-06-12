@@ -10,5 +10,22 @@ public:
   
   GraphicType GetType()const;
   
-  void Render() = 0;
+  void Render(const Object& object, sf::RenderWindow& window) = 0;
+};
+
+class VectorCircle : public ObjectGraphic{
+public:
+  VectorCircle(float radius, const sf::Color& colour);
+  
+  void Render(const Object& object, sf::RenderWindow& window);
+  
+  float GetRadius()const;
+  void SetRadius(float radius);
+  
+  sf::Color GetColour() const;
+  void SetColour(const sf::Color& colour);
+  
+  private:
+      float mRadius;
+      sf::Color mFillColour;
 };
