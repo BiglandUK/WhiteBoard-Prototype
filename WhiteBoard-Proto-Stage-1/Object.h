@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <memory>
 
+class ObjectGraphic;
+
 using PropertyList = std::unordered_map<Property, std::shared_ptr<ObjectProperty>>;
 
 class Object {
@@ -13,10 +15,12 @@ private:
 	PropertyList mProperties;
 
 	sf::CircleShape mCircle;
+	ObjectGraphic* mGraphic;
 
 public:
 	Object();
 	Object(float x, float y, bool move = true);
+	~Object();
 
 	template<class T>
 	bool AddProperty(Property propertyType) {
@@ -39,6 +43,8 @@ public:
 			return std::static_pointer_cast<T>(property->second);	
 	}
 
+
+	void SetGraphic(ObjectGraphic* graphic);
 	void Render(sf::RenderWindow& window);
 
 	void AddMotor();
