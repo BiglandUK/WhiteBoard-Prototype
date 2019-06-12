@@ -29,3 +29,13 @@ public:
       float mRadius;
       sf::Color mFillColour;
 };
+
+class VectorPolygon : public ObjectGraphic{
+ public:
+  VectorPolygon();
+  
+  void Render(const Object& object, sf::RenderWindow& window);
+  
+  private:
+  sf::Color mFillColour;
+};
