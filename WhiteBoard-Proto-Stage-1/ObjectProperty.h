@@ -17,6 +17,9 @@ private:
 	bool mCanDisable;
 };
 
+
+//ObjectPosition - stores an objects position and origin (it's primary point, used for rotation, etc.)
+// This is needed for an object to be displayed, and to be grabbed by the mouse.
 class ObjectPosition: public ObjectProperty {
 public:
 	ObjectPosition(float x = 0, float y = 0);
@@ -45,6 +48,8 @@ private:
 	bool IsInside(const sf::Vector2f& mousePos);
 };
 
+
+// ObjectMovement - allows an object to move, autonomously or via the mouse.
 class ObjectMovement : public ObjectProperty {
 public:
 	ObjectMovement();
@@ -75,7 +80,7 @@ public:
 
 private:
 	sf::Vector2f mDirection; // the direction the object is facing/heading - used as initial direction when the object moves from rest.
-	sf::Vector2f mActualVelocity;
+	sf::Vector2f mVelocity;
 	float mMaxVelocityMagnitude;
 	bool mGrabbed, mBounce;
 

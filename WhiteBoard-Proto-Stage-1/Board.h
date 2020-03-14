@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-
+// A Board is a collection of objects.
 class Board {
 private:
 	unsigned int mWidth, mHeight;

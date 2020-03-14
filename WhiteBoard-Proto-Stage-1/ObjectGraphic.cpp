@@ -58,3 +58,21 @@ void VectorPolygon::Render(Object& object, sf::RenderWindow& window) {
 
 	window.draw(rect);
 }
+
+
+//Text Graphic
+TextGraphic::TextGraphic(std::string text)
+:mText(text)
+{}
+
+GraphicType TextGraphic::GetType() const {	return GraphicType::Text; }
+
+void TextGraphic::Render(Object& object, sf::RenderWindow& window) {
+	sf::Font font;
+	font.loadFromFile("arial.ttf");
+	sf::Text text(mText, font);
+	std::shared_ptr<ObjectPosition> obj = object.GetProperty<ObjectPosition>(Property::Position);
+	if (obj == nullptr)return;
+	text.setPosition(obj->GetPosition().x, obj->GetPosition().y);
+	window.draw(text);
+}

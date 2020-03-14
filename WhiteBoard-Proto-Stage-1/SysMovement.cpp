@@ -2,7 +2,7 @@
 #include "PropulsionMotor.h"
 
 SysMovement::SysMovement(Objects& objects)
-	: mRefObjects(objects), mFriction(40.f)
+	: mRefObjects(objects), mFriction(160.f)
 {
 }
 
@@ -61,7 +61,7 @@ void SysMovement::Update(float time, const sf::Vector2f& mousePos) {
 				
 				RestrictBoardBoundaries(position); // Prevent object moving outside board.
 				// Friction - affects movement property. Only affected if not grabbed by mouse
-				movementProp->ReduceSpeed(mFriction * time); 
+				movementProp->ReduceSpeed(mFriction * time);
 			// Update position in Position Property.
 			positionProp->SetPosition(position);
 			}

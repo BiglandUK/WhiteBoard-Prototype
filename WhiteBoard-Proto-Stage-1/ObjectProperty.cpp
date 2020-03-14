@@ -101,32 +101,32 @@ sf::Vector2f& ObjectMovement::GetDirection() {
 }
 
 void ObjectMovement::SetVelocity(const sf::Vector2f& velocity) {
-	mActualVelocity = velocity;
+	mVelocity = velocity;
 }
 
 const sf::Vector2f& ObjectMovement::GetVelocity() const {
-	return mActualVelocity;
+	return mVelocity;
 }
 
 sf::Vector2f& ObjectMovement::GetVelocity() {
-	return mActualVelocity;
+	return mVelocity;
 }
 
 void ObjectMovement::ReduceSpeed(const float speed) {
 	if (IsStopped()) return;
-	float mag = std::hypotf(mActualVelocity.x, mActualVelocity.y);
+	float mag = std::hypotf(mVelocity.x, mVelocity.y);
 	float newSpeed = mag - speed;
 	if (newSpeed < 0.f) newSpeed = 0.f; //Avoid negative speeds
-	mActualVelocity.x = mDirection.x * newSpeed;
-	mActualVelocity.y = mDirection.y * newSpeed;
+	mVelocity.x = mDirection.x * newSpeed;
+	mVelocity.y = mDirection.y * newSpeed;
 }
 
 void ObjectMovement::Stop() {
-	mActualVelocity.x = mActualVelocity.y = 0.f;
+	mVelocity.x = mVelocity.y = 0.f;
 }
 
 bool ObjectMovement::IsStopped()const {
-	return mActualVelocity.x == 0.f && mActualVelocity.y == 0.f;
+	return mVelocity.x == 0.f && mVelocity.y == 0.f;
 }
 
 void ObjectMovement::OnRelease() {
@@ -150,16 +150,16 @@ bool ObjectMovement::DoesBounce() const{
 
 void ObjectMovement::CollideLR() {
 	if (mBounce) {
-		mActualVelocity.x = -mActualVelocity.x;
-		SetDirection(mActualVelocity);
+		mVelocity.x = -mVelocity.x;
+		SetDirection(mVelocity);
 	}
 	else Stop();
 }
 
 void ObjectMovement::CollideTB() {
 	if (mBounce) {
-		mActualVelocity.y = -mActualVelocity.y;
-		SetDirection(mActualVelocity);
+		mVelocity.y = -mVelocity.y;
+		SetDirection(mVelocity);
 	}
 	else Stop();
 }
